@@ -6,7 +6,7 @@ The project aims to allow the users to take pictures and/or leave notes, ratings
 
 ### What is this repository for? ###
 
-This repository is for the website built with [Nuxt.js](https://nuxtjs.org/) & [Vue.js](https://vuejs.org/) 
+This repository is for the website built with [Vue.js](https://vuejs.org/) & [Vuetify.js](https://vuetifyjs.com/) 
 
 For the list of existing or currently being developed feature please refer to the [features](#features) section of this document.
 
@@ -16,15 +16,11 @@ For the list of existing or currently being developed feature please refer to th
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+# serve with hot reload at localhost:8080
+$ npm run serve
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+# for a web based ui you can run
+$ vue ui
 ```
  
 ### Contribution guidelines ###
@@ -40,6 +36,7 @@ $ npm run generate
 ### Features ###
 List of currently completed or still being developed feature: 
 
+* [ ] Basic pages layout
 * [ ] Login 
 * [ ] Register
 * [ ] User profile

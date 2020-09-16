@@ -15,7 +15,7 @@
       </div>
 
       <v-spacer></v-spacer>
-
+      <span v-if="!isLoggedIn">
       <router-link to="/register" class="btn">
         <v-btn text>
           <span class="mr-2">Register</span>
@@ -23,19 +23,19 @@
         </v-btn>
       </router-link>
 
+
       <router-link to="/login" class="btn">
         <v-btn text>
           <span class="mr-2">Login</span>
           <v-icon>mdi-login</v-icon>
         </v-btn>
       </router-link>
+      </span>
 
-      <router-link to="/logout" class="btn">
-        <v-btn text>
+        <v-btn v-else text @click.prevent="logout">
           <span class="mr-2">Logout</span>
           <v-icon>mdi-exit-to-app</v-icon>
         </v-btn>
-      </router-link>
     </v-app-bar>
 
     <v-main>
@@ -45,7 +45,22 @@
 </template>
 
 <script>
+import {mapGetters, mapMutations} from "vuex";
+import router from "@/router";
+
 export default {
+  computed: {
+    ...mapGetters(["isLoggedIn", "token"])
+  },
+  methods: {
+    ...mapMutations(["setIsLoggedIn", "setToken"]),
+    logout(){
+        this.setIsLoggedIn(false);
+        this.setToken(null);
+
+        router.push("/login");
+    }
+  },
   name: 'App',
 };
 </script>
