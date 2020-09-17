@@ -36,9 +36,10 @@
 
         <v-col cols="12" sm="6" class="pa-5">
           <v-card class="pa-5" outlined tile>
-            <v-text-field name="username" label="Username" placeholder="Enter username..." type="text"
-                          v-model="username"/>
-            <v-text-field name="password" label="Password" type="password" v-model="password"/>
+            <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
+            <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
+            <v-text-field label="Username" placeholder="Enter username..." type="text" v-model="username"/>
+            <v-text-field label="Password" type="password" v-model="password"/>
             <v-btn color="primary" @click.prevent="login">Login</v-btn>
           </v-card>
         </v-col>
@@ -50,36 +51,41 @@
 <script>
 import {mapGetters, mapMutations} from "vuex";
 import axios from "axios";
+import utilities from "@/helpers/utilities";
 
 export default {
   name: "Login",
-  computed:{
+  computed: {
     ...mapGetters(["isLoggedIn", "token"])
   },
   data() {
     return {
-      username: "gac",
-      password: "fac5b2c9d9fe1d6cc567798868a6e02124a50f4d3d4330ea96a95ddb62e9673b"
+      error: "",
+      message: "",
+      username: "",
+      password: ""
     }
   },
   methods: {
     ...mapMutations(["setToken", "setIsLoggedIn"]),
-    async login() {
+    login() {
+      const hashedPassword = utilities.hash(this.password);
+
       axios.post(`${process.env.VUE_APP_API_URL}/login`, {
         username: this.username,
-        password: this.password
+        password: hashedPassword
       }).then((response) => {
         const result = response.data;
         this.setToken(result.data.token || null);
         this.setIsLoggedIn((result.data.token.length > 0));
         this.$router.push("/");
       }).catch((err) => {
-        console.log(err);
+        this.error = err.response.data.message;
       });
     }
   },
   mounted() {
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.$router.push("/");
     }
   }

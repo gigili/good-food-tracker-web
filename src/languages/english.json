@@ -1,0 +1,19 @@
+{
+  "welcome": "welcome",
+  "validation_error_required_field": "{0} field is required.",
+  "validation_error_minimum_length": "minimum length for the {0} field is {1} characters.",
+  "validation_error_maximum_length": "maximum length for the {0} field is {1} characters.",
+  "validation_error_email": "invalid email address.",
+  "validation_error_not_a_number": "value for the field {0} must be a number.",
+  "validation_error_invalid_file_extension": "extension .{0} is not supported.",
+  "full_name": "full name",
+  "email": "email",
+  "username": "username",
+  "password": "password",
+  "enter_full_name": "enter your full name",
+  "enter_email": "enter your email address",
+  "enter_username": "enter username",
+  "enter_password": "enter password",
+  "invalid_password_strength": "password needs to be at least 8 characters long and contain one small, one big letter and a special character."
+}
+
