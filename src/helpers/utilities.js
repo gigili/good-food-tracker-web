@@ -29,6 +29,9 @@ const Utilities = {
 		}
 
 		return sha256(str).toString();
+	},
+	set_language(lang){
+		localStorage.setItem(process.env.VUE_APP_LANG, lang);
 	}
 }
 
