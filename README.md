@@ -36,9 +36,8 @@ $ vue ui
 ### Features ###
 List of currently completed or still being developed feature: 
 
-* [ ] Basic pages layout
-* [ ] Login 
-* [ ] Register
+* [x] Login 
+* [x] Register
 * [ ] User profile
     * [ ] Get user profile information
     * [ ] Update user profile information
