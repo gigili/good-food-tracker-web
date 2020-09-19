@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col cols="12" sm="6" class="pa-5">
           <v-card class="pa-5" outlined tile>
-            <h1>Login</h1>
+            <h1>{{ trn("login") }}</h1>
             <hr/>
             <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
               reprehenderit?
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["setToken", "setIsLoggedIn"]),
+    ...mapMutations(["setToken", "setIsLoggedIn", "setUser"]),
     login() {
       const hashedPassword = utilities.hash(this.password);
 
@@ -78,6 +78,7 @@ export default {
         const result = response.data;
         this.setToken(result.data.token || null);
         this.setIsLoggedIn((result.data.token.length > 0));
+        this.setUser(result.data.user);
         this.$router.push("/");
       }).catch((err) => {
         this.error = err.response.data.message;

@@ -55,7 +55,6 @@
 import {mapGetters} from "vuex";
 import utilities from "@/helpers/utilities";
 import validation from "@/helpers/validation";
-import translate from "@/helpers/translation";
 import axios from 'axios';
 
 export default {
@@ -81,10 +80,10 @@ export default {
   methods: {
     register() {
       const validationResult = validation.validate([
-        [this.name, translate("full_name"), ["required", {"min_length": 4}]],
-        [this.email, translate("email"), ["required", "valid_email"]],
-        [this.username, translate("username"), ["required"]],
-        [this.password, translate("password"), ["required", "valid_password"]],
+        [this.name, this.trn("full_name"), ["required", {"min_length": 4}]],
+        [this.email, this.trn("email"), ["required", "valid_email"]],
+        [this.username, this.trn("username"), ["required"]],
+        [this.password, this.trn("password"), ["required", "valid_password"]],
       ]);
 
       if (validationResult.length > 0) {
@@ -112,9 +111,6 @@ export default {
       }).catch((err) => {
         this.error = err.response.data.message;
       });
-    },
-    trn(key) {
-      return translate(key);
     },
     clearInputs(){
       this.name ="";

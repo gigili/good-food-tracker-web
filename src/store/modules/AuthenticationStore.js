@@ -1,6 +1,7 @@
 const state = {
 	isLoggedIn: false,
-	token: null
+	token: null,
+	user: null
 };
 
 const getters = {
@@ -9,6 +10,9 @@ const getters = {
 	},
 	token(state) {
 		return state.token;
+	},
+	user(state){
+		return state.user;
 	}
 };
 
@@ -20,6 +24,9 @@ const mutations = {
 	},
 	setToken(state, token) {
 		state.token = token;
+	},
+	setUser(state, user) {
+		state.user = user;
 	}
 };
 
