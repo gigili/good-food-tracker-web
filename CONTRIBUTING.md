@@ -10,8 +10,6 @@ The following is a set of guidelines for contributing to my project. These are m
 
 [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
 
-[What should I know before I get started?](#what-should-i-know-before-i-get-started)
-
 [How Can I Contribute?](#how-can-i-contribute)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
@@ -28,10 +26,6 @@ This project and everyone participating in it is governed by the [Code of Conduc
 ## I don't want to read this whole thing I just have a question!!!
 
 > **Note:** Please don't file an issue to ask a question. If you have any question, reach out to me on Twitter or via Email. 
-
-## What should I know before I get started?
-
-In order to be able to build the app you will need to rename the secrets_sample.txt file into secrets.xml. 
 
 ## How Can I Contribute?
 
