@@ -11,19 +11,19 @@ Vue.config.productionTip = false
 const language = localStorage.getItem(process.env.VUE_APP_LANG) || "english";
 utilities.set_language(language);
 
-const mixin = {
+Vue.mixin({
 	methods: {
-		trn: function (p1, p2) {
-			console.log('foo', p1, p2);
-			return translate(p1, p2)
+		translate(translationKey = "", capitalizeFirstLetter = true) {
+			//console.log(translationKey);
+			//TODO: Find out why this function is getting called on every key press
+			return translate(translationKey, capitalizeFirstLetter)
 		}
 	}
-}
+})
 
 new Vue({
 	router,
 	store,
 	vuetify,
 	render: h => h(App),
-	mixins: [mixin]
 }).$mount('#app')

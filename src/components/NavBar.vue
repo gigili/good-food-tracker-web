@@ -18,14 +18,14 @@
     <span v-if="!isLoggedIn">
       <router-link to="/register" class="btn">
         <v-btn text>
-          <span class="mr-2">{{ trn("register") }}</span>
+          <span class="mr-2">{{ translate("register") }}</span>
           <v-icon>mdi-account-plus</v-icon>
         </v-btn>
       </router-link>
 
       <router-link to="/login" class="btn">
         <v-btn text>
-          <span class="mr-2">{{ trn("login") }}</span>
+          <span class="mr-2">{{ translate("login") }}</span>
           <v-icon>mdi-login</v-icon>
         </v-btn>
       </router-link>
@@ -43,13 +43,13 @@
         <v-list>
           <v-list-item @click="() => {}">
             <v-list-item-title>
-              <router-link to="/profile" class="profileLinks">{{ trn("profile") }}</router-link>
+              <router-link to="/profile" class="profileLinks">{{ translate("profile") }}</router-link>
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="() => {}">
             <v-list-item-title>
               <router-link to="/settings" class="profileLinks">
-                {{ trn("settings") }}
+                {{ translate("settings") }}
               </router-link>
             </v-list-item-title>
           </v-list-item>
@@ -57,7 +57,7 @@
       </v-menu>
 
       <v-btn text @click.prevent="logout">
-        <span class="mr-2">{{ trn("logout") }}</span>
+        <span class="mr-2">{{ translate("logout") }}</span>
         <v-icon>mdi-exit-to-app</v-icon>
       </v-btn>
     </span>
@@ -80,9 +80,6 @@ export default {
       this.setToken(null);
       router.push("/login");
     },
-    trn(){
-      console.log("Logged from within the method");
-    }
   }
 }
 </script>

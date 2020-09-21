@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col cols="12" sm="6" class="pa-5">
           <v-card class="pa-5" outlined tile>
-            <h1>{{ trn("login") }}</h1>
+            <h1>{{ translate("login") }}</h1>
             <hr/>
             <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
               reprehenderit?
@@ -38,9 +38,16 @@
           <v-card class="pa-5" outlined tile>
             <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
             <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-            <v-text-field label="Username" placeholder="Enter username..." type="text" v-model="username"/>
-            <v-text-field label="Password" type="password" v-model="password"/>
-            <v-btn color="primary" @click.prevent="login">Login</v-btn>
+            <v-text-field
+                :label="translate('username')"
+                :placeholder="translate('enter_username')"
+                type="text"
+                v-model="username"/>
+            <v-text-field
+                :label="translate('password')"
+                type="password"
+                v-model="password"/>
+            <v-btn color="primary" @click.prevent="login">{{ translate("login") }}</v-btn>
           </v-card>
         </v-col>
       </v-row>

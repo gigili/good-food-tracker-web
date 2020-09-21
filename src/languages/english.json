@@ -16,6 +16,10 @@
   "enter_password": "enter password",
   "invalid_password_strength": "password needs to be at least 8 characters long and contain one small, one big letter and a special character.",
   "profile": "profile",
-  "edit_information": "edit information"
+  "edit_information": "edit information",
+  "logout": "logout",
+  "login": "login",
+  "register": "register",
+  "settings": "settings"
 }
 

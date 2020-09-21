@@ -11,7 +11,7 @@
               <v-card-subtitle>{{user.username}}</v-card-subtitle>
 
               <v-btn v-if="!isEditing" small outlined color="primary" dark>
-                {{ trn("edit_information") }}
+                {{ translate("edit_information") }}
                 <v-icon class="ml-2">mdi-pencil</v-icon>
               </v-btn>
 

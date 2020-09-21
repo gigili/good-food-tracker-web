@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col cols="12" sm="6" class="pa-5">
         <v-card class="pa-5" outlined tile>
-          <h1>Register</h1>
+          <h1>{{ translate("register") }}</h1>
           <hr/>
           <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
             reprehenderit?
@@ -37,11 +37,11 @@
         <v-card class="pa-5" outlined tile>
           <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
           <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-          <v-text-field :label="trn('full_name')" :placeholder="trn('enter_full_name')" type="text" v-model="name"/>
-          <v-text-field :label="trn('email')" :placeholder="trn('enter_email')" type="email" v-model="email"/>
-          <v-text-field :label="trn('username')" autocomplete="off" :placeholder="trn('enter_username')" type="text"
+          <v-text-field :label="translate('full_name')" :placeholder="translate('enter_full_name')" type="text" v-model="name"/>
+          <v-text-field :label="translate('email')" :placeholder="translate('enter_email')" type="email" v-model="email"/>
+          <v-text-field :label="translate('username')" autocomplete="off" :placeholder="translate('enter_username')" type="text"
                         v-model="username"/>
-          <v-text-field :label="trn('password')" autocomplete="off" :placeholder="trn('enter_password')"
+          <v-text-field :label="translate('password')" autocomplete="off" :placeholder="translate('enter_password')"
                         type="password"
                         v-model="password"/>
           <v-btn color="primary" @click.prevent="register">Register</v-btn>
@@ -56,14 +56,15 @@ import {mapGetters} from "vuex";
 import utilities from "@/helpers/utilities";
 import validation from "@/helpers/validation";
 import axios from 'axios';
+import translate from "@/helpers/translation";
 
 export default {
   name: "Register",
-  computed:{
+  computed: {
     ...mapGetters(["isLoggedIn", "token"])
   },
   mounted() {
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.$router.push("/");
     }
   },
@@ -80,10 +81,10 @@ export default {
   methods: {
     register() {
       const validationResult = validation.validate([
-        [this.name, this.trn("full_name"), ["required", {"min_length": 4}]],
-        [this.email, this.trn("email"), ["required", "valid_email"]],
-        [this.username, this.trn("username"), ["required"]],
-        [this.password, this.trn("password"), ["required", "valid_password"]],
+        [this.name, translate("full_name"), ["required", {"min_length": 4}]],
+        [this.email, translate("email"), ["required", "valid_email"]],
+        [this.username, translate("username"), ["required"]],
+        [this.password, translate("password"), ["required", "valid_password"]],
       ]);
 
       if (validationResult.length > 0) {
@@ -112,8 +113,8 @@ export default {
         this.error = err.response.data.message;
       });
     },
-    clearInputs(){
-      this.name ="";
+    clearInputs() {
+      this.name = "";
       this.email = "";
       this.username = "";
       this.password = "";
@@ -123,7 +124,7 @@ export default {
 </script>
 
 <style scoped>
-  .lipsum {
-    margin-top: 15px;
-  }
+.lipsum {
+  margin-top: 15px;
+}
 </style>
