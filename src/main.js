@@ -14,12 +14,12 @@ utilities.set_language(language);
 Vue.mixin({
 	methods: {
 		translate(translationKey = "", capitalizeFirstLetter = true) {
-			//console.log(translationKey);
 			//TODO: Find out why this function is getting called on every key press
-			return translate(translationKey, capitalizeFirstLetter)
+			console.log(translationKey);
+			return translate(translationKey, capitalizeFirstLetter);
 		}
 	}
-})
+});
 
 new Vue({
 	router,
