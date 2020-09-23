@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col cols="12" sm="6" class="pa-5">
         <v-card class="pa-5" outlined tile>
-          <h1>{{ translate("register") }}</h1>
+          <h1 v-once>{{ translate("register") }}</h1>
           <hr/>
           <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
             reprehenderit?
@@ -37,14 +37,14 @@
         <v-card class="pa-5" outlined tile>
           <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
           <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-          <v-text-field :label="translate('full_name')" :placeholder="translate('enter_full_name')" type="text" v-model="name"/>
-          <v-text-field :label="translate('email')" :placeholder="translate('enter_email')" type="email" v-model="email"/>
-          <v-text-field :label="translate('username')" autocomplete="off" :placeholder="translate('enter_username')" type="text"
+          <v-text-field v-once :label="translate('full_name')" :placeholder="translate('enter_full_name')" type="text" v-model="name"/>
+          <v-text-field v-once :label="translate('email')" :placeholder="translate('enter_email')" type="email" v-model="email"/>
+          <v-text-field v-once :label="translate('username')" autocomplete="off" :placeholder="translate('enter_username')" type="text"
                         v-model="username"/>
-          <v-text-field :label="translate('password')" autocomplete="off" :placeholder="translate('enter_password')"
+          <v-text-field v-once :label="translate('password')" autocomplete="off" :placeholder="translate('enter_password')"
                         type="password"
                         v-model="password"/>
-          <v-btn color="primary" @click.prevent="register">Register</v-btn>
+          <v-btn color="primary" @click.prevent="register" v-once>Register</v-btn>
         </v-card>
       </v-col>
     </v-row>

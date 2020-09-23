@@ -20,6 +20,8 @@
   "logout": "logout",
   "login": "login",
   "register": "register",
-  "settings": "settings"
+  "settings": "settings",
+  "save_information" : "save information",
+  "profile_information_updated_success": "profile information updated successfully"
 }
 

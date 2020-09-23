@@ -18,14 +18,14 @@
     <span v-if="!isLoggedIn">
       <router-link to="/register" class="btn">
         <v-btn text>
-          <span class="mr-2">{{ translate("register") }}</span>
+          <span class="mr-2" v-once>{{ translate("register") }}</span>
           <v-icon>mdi-account-plus</v-icon>
         </v-btn>
       </router-link>
 
       <router-link to="/login" class="btn">
         <v-btn text>
-          <span class="mr-2">{{ translate("login") }}</span>
+          <span class="mr-2" v-once>{{ translate("login") }}</span>
           <v-icon>mdi-login</v-icon>
         </v-btn>
       </router-link>
@@ -33,8 +33,8 @@
 
     <span v-else>
       <v-menu left bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" v-bind="attrs" v-on="on">
+        <template v-slot:activator="{ on: menu, attrs }">
+          <v-btn color="primary" v-on="{...menu}" v-bind="attrs">
             {{ user.name }}
             <v-icon class="ml-2">mdi-account-circle</v-icon>
           </v-btn>
@@ -43,12 +43,12 @@
         <v-list>
           <v-list-item @click="() => {}">
             <v-list-item-title>
-              <router-link to="/profile" class="profileLinks">{{ translate("profile") }}</router-link>
+              <router-link to="/profile" class="profileLinks" v-once>{{ translate("profile") }}</router-link>
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="() => {}">
             <v-list-item-title>
-              <router-link to="/settings" class="profileLinks">
+              <router-link to="/settings" class="profileLinks" v-once>
                 {{ translate("settings") }}
               </router-link>
             </v-list-item-title>
@@ -57,7 +57,7 @@
       </v-menu>
 
       <v-btn text @click.prevent="logout">
-        <span class="mr-2">{{ translate("logout") }}</span>
+        <span class="mr-2" v-once>{{ translate("logout") }}</span>
         <v-icon>mdi-exit-to-app</v-icon>
       </v-btn>
     </span>
