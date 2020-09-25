@@ -71,13 +71,13 @@ import router from "../router";
 export default {
   name: "NavBar",
   computed: {
-    ...mapGetters(["isLoggedIn", "token", "user"])
+    ...mapGetters("AuthenticationStore", ["isLoggedIn", "user"])
   },
   methods: {
-    ...mapMutations(["setIsLoggedIn", "setToken"]),
+    ...mapMutations("AuthenticationStore", ["setIsLoggedIn", "removeTokenData"]),
     logout() {
       this.setIsLoggedIn(false);
-      this.setToken(null);
+      this.removeTokenData();
       router.push("/login");
     },
   }

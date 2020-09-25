@@ -1,38 +1,44 @@
-const state = {
-	isLoggedIn: false,
-	token: null,
-	user: null
-};
-
-const getters = {
-	isLoggedIn(state) {
-		return state.isLoggedIn;
+const AuthenticationStore = {
+	namespaced: true,
+	state: {
+		isLoggedIn: false,
+		tokenData: {
+			token: null,
+			refreshToken: null,
+			expires: null
+		},
+		user: null
 	},
-	token(state) {
-		return state.token;
+	getters: {
+		isLoggedIn(state) {
+			return state.isLoggedIn;
+		},
+		tokenData(state) {
+			return state.tokenData;
+		},
+		user(state) {
+			return state.user;
+		},
 	},
-	user(state){
-		return state.user;
+	actions: {},
+	mutations: {
+		setIsLoggedIn(state, isLoggedIn) {
+			state.isLoggedIn = isLoggedIn;
+		},
+		setTokenData(state, tokenData) {
+			state.tokenData = tokenData;
+		},
+		removeTokenData(state){
+			state.tokenData = {
+				token: null,
+				refreshToken: null,
+				expires: null
+			}
+		},
+		setUser(state, user) {
+			state.user = user;
+		}
 	}
-};
-
-const actions = {};
-
-const mutations = {
-	setIsLoggedIn(state, isLoggedIn) {
-		state.isLoggedIn = isLoggedIn;
-	},
-	setToken(state, token) {
-		state.token = token;
-	},
-	setUser(state, user) {
-		state.user = user;
-	}
-};
-
-export default {
-	state,
-	getters,
-	actions,
-	mutations
 }
+
+export default AuthenticationStore;

@@ -37,11 +37,15 @@
         <v-card class="pa-5" outlined tile>
           <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
           <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-          <v-text-field v-once :label="translate('full_name')" :placeholder="translate('enter_full_name')" type="text" v-model="name"/>
-          <v-text-field v-once :label="translate('email')" :placeholder="translate('enter_email')" type="email" v-model="email"/>
-          <v-text-field v-once :label="translate('username')" autocomplete="off" :placeholder="translate('enter_username')" type="text"
+          <v-text-field v-once :label="translate('full_name')" :placeholder="translate('enter_full_name')" type="text"
+                        v-model="name"/>
+          <v-text-field v-once :label="translate('email')" :placeholder="translate('enter_email')" type="email"
+                        v-model="email"/>
+          <v-text-field v-once :label="translate('username')" autocomplete="off"
+                        :placeholder="translate('enter_username')" type="text"
                         v-model="username"/>
-          <v-text-field v-once :label="translate('password')" autocomplete="off" :placeholder="translate('enter_password')"
+          <v-text-field v-once :label="translate('password')" autocomplete="off"
+                        :placeholder="translate('enter_password')"
                         type="password"
                         v-model="password"/>
           <v-btn color="primary" @click.prevent="register" v-once>Register</v-btn>
@@ -55,13 +59,13 @@
 import {mapGetters} from "vuex";
 import utilities from "@/helpers/utilities";
 import validation from "@/helpers/validation";
-import axios from 'axios';
+import api from "@/helpers/api";
 import translate from "@/helpers/translation";
 
 export default {
   name: "Register",
   computed: {
-    ...mapGetters(["isLoggedIn", "token"])
+    ...mapGetters("AuthenticationStore", ["isLoggedIn"])
   },
   mounted() {
     if (this.isLoggedIn) {
@@ -96,7 +100,7 @@ export default {
 
       const hashedPassword = utilities.hash(this.password);
 
-      axios.post(`${process.env.VUE_APP_API_URL}/register`, {
+      api().post("/register", {
         name: this.name,
         email: this.email,
         username: this.username,

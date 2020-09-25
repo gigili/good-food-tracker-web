@@ -59,13 +59,13 @@
 
 <script>
 import {mapGetters, mapMutations} from "vuex";
-import axios from "axios";
+import api from "@/helpers/api";
 import utilities from "@/helpers/utilities";
 
 export default {
   name: "Login",
   computed: {
-    ...mapGetters(["isLoggedIn", "token"])
+    ...mapGetters("AuthenticationStore", ["isLoggedIn"])
   },
   data() {
     return {
@@ -76,16 +76,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["setToken", "setIsLoggedIn", "setUser"]),
+    ...mapMutations("AuthenticationStore", ["setTokenData", "setIsLoggedIn", "setUser"]),
     login() {
       const hashedPassword = utilities.hash(this.password);
 
-      axios.post(`${process.env.VUE_APP_API_URL}/login`, {
+      api().post('/login', {
         username: this.username,
         password: hashedPassword
       }).then((response) => {
         const result = response.data;
-        this.setToken(result.data.token || null);
+        this.setTokenData({
+          token: result.data.token,
+          refreshToken: null,
+          expires: result.data.expires
+        });
         this.setIsLoggedIn((result.data.token.length > 0));
         this.setUser(result.data.user);
         this.$router.push("/");
