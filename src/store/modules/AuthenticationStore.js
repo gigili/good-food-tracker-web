@@ -26,7 +26,17 @@ const AuthenticationStore = {
 			state.isLoggedIn = isLoggedIn;
 		},
 		setTokenData(state, tokenData) {
-			state.tokenData = tokenData;
+			if(tokenData.token){
+				state.tokenData.token = tokenData.token;
+			}
+
+			if(tokenData.refreshToken){
+				state.tokenData.refreshToken = tokenData.refreshToken;
+			}
+
+			if(tokenData.expires){
+				state.tokenData.expires = tokenData.expires;
+			}
 		},
 		removeTokenData(state){
 			state.tokenData = {

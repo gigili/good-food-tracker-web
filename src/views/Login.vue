@@ -85,12 +85,8 @@ export default {
         password: hashedPassword
       }).then((response) => {
         const result = response.data;
-        this.setTokenData({
-          token: result.data.token,
-          refreshToken: null,
-          expires: result.data.expires
-        });
-        this.setIsLoggedIn((result.data.token.length > 0));
+        this.setTokenData(result.data.tokenData);
+        this.setIsLoggedIn((result.data.tokenData.access_token.length > 0));
         this.setUser(result.data.user);
         this.$router.push("/");
       }).catch((err) => {

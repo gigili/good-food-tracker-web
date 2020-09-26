@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "@/store/index";
+import store from "@/store";
 
 export default (requiresAuth = false) => {
 	const tokenData = store.getters["AuthenticationStore/tokenData"];
@@ -19,12 +19,11 @@ export default (requiresAuth = false) => {
 		const tokenExpiresAt = tokenData.expires;
 		if ((tokenExpiresAt === null || now > tokenExpiresAt) && tokenData.refreshToken !== null) {
 			instance.post(`/refresh`, {
-				refreshToken: tokenData.refreshToken
+				refresh_token: tokenData.refreshToken
 			}).then(response => {
 				if (response.data.success) {
 					store.commit("setTokenData", {
-						token: response.data.token,
-						refreshToken: null,
+						token: response.data.access_token,
 						expires: response.data.expires
 					});
 				}
