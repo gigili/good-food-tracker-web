@@ -6,9 +6,9 @@
           <v-row>
             <v-col cols="12" sm="4" class="profileInformation">
               <v-avatar size="250">
-                <img :src="profileImage" :alt="user.name" id="profileImage"/>
+                <img :src="profileImage" :alt="userData.name" id="profileImage"/>
               </v-avatar>
-              <v-card-subtitle>{{ user.username }}</v-card-subtitle>
+              <v-card-subtitle>{{ userData.username }}</v-card-subtitle>
 
               <v-btn v-if="!isEditing" small outlined color="primary" dark @click="enableEditing">
                 <span v-once>
@@ -26,24 +26,34 @@
 
               <AlertMessages :error="error" :message="message" class="mt-5"/>
               <span v-if="!isEditing">
-                <v-card-subtitle><h1>{{ user.name }}</h1></v-card-subtitle>
-                <v-card-subtitle class="mt-0 pt-0">{{ user.email }}</v-card-subtitle>
+                <v-card-subtitle><h1>{{ userData.name }}</h1></v-card-subtitle>
+                <v-card-subtitle class="mt-0 pt-0">{{ userData.email }}</v-card-subtitle>
               </span>
 
               <span v-else>
                 <v-row>
+                  <v-col col="6" sm="12" class="px-15 ma-0">
+                    <v-file-input
+                        chips
+                        :rules="imageUploadRules"
+                        show-size
+                        accept="image/png, image/jpeg, image/bmp"
+                        v-model="newProfileImage"
+                        :label="profileImageLabel"/>
+                  </v-col>
+
                   <v-col cols="6" sm="12" class="px-15 ma-0">
                     <v-text-field
                         :label="nameLabel"
                         type="text"
-                        v-model="name"/>
+                        v-model="userData.name"/>
                   </v-col>
 
                   <v-col cols="6" sm="12" class="px-15 ma-0">
                     <v-text-field
                         :label="emailLabel"
                         type="email"
-                        v-model="email"/>
+                        v-model="userData.email"/>
                   </v-col>
                 </v-row>
               </span>
@@ -61,15 +71,14 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 import api from "@/helpers/api";
 import AlertMessages from "@/components/AlertMessages";
 
 export default {
   name: "Profile",
   mounted() {
-    this.name = this.user.name;
-    this.email = this.user.email;
+    this.loadUserData();
   },
   components: {
     AlertMessages
@@ -77,21 +86,32 @@ export default {
   computed: {
     ...mapGetters("AuthenticationStore", ["user"]),
     profileImage() {
-      return `${process.env.VUE_APP_API_URL}/${this.user.image}`
-    },
+      let value = null;
+
+      if(this.userData && this.userData.image) {
+        value = `${process.env.VUE_APP_API_URL}/${this.userData.image}`
+      }
+
+      return value;
+    }
   },
   data() {
     return {
       isEditing: false,
-      name: "",
-      email: "",
+      userData: {},
       nameLabel: this.translate("full_name"),
       emailLabel: this.translate("email"),
+      profileImageLabel: this.translate("select_profile_image"),
       error: "",
-      message: ""
+      message: "",
+      newProfileImage: null,
+      imageUploadRules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],
     }
   },
   methods: {
+    ...mapMutations("AuthenticationStore", ["setUser"]),
     enableEditing() {
       this.message = "";
       this.error = "";
@@ -99,25 +119,52 @@ export default {
     },
 
     saveInformation() {
-      this.user.name = this.name;
-      this.user.email = this.email;
+      this.user.name = this.userData.name;
+      this.user.email = this.userData.email;
 
-      api(true).post(`/profile/${this.user.guid}`, {
-        name: this.name,
-        email: this.email
-      }).then(response => {
+      const updateData = new FormData();
+      updateData.append("name", this.userData.name);
+      updateData.append("email", this.userData.email);
+
+      let headers = {};
+      if (this.newProfileImage !== null) {
+        headers = {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+
+        updateData.append("image", this.newProfileImage);
+      }
+
+      api(true).patch(`/profile/${this.user.guid}`, updateData, headers).then(response => {
         if (response.data.success) {
           this.message = this.translate("profile_information_updated_success")
           this.isEditing = false;
+          this.loadUserData(true);
         } else {
           this.error = response.data.message;
         }
       }).catch(error => {
         this.error = error.response.data.message;
       });
+    },
+    loadUserData(isDataUpdated = false){
+      const profileURL = `/profile/${this.user.guid}`;
+      api(true).get(profileURL).then(response => {
+        if(response.data.success){
+          this.userData = response.data.data;
+          if(isDataUpdated){
+            this.setUser(this.userData);
+          }
+        }
+      }).catch(error => {
+        console.log(error.response);
+      });
     }
-  }
+  },
 }
+
 </script>
 
 <style scoped>

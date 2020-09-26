@@ -7,7 +7,15 @@ const AuthenticationStore = {
 			refreshToken: null,
 			expires: null
 		},
-		user: null
+		user: {
+			id: null,
+			guid: null,
+			name: null,
+			email: null,
+			username: null,
+			image: null,
+			power: 0
+		}
 	},
 	getters: {
 		isLoggedIn(state) {
@@ -19,6 +27,9 @@ const AuthenticationStore = {
 		user(state) {
 			return state.user;
 		},
+		profileImage(state){
+			return `${process.env.VUE_APP_API_URL}/${state.user.image}`
+		}
 	},
 	actions: {},
 	mutations: {
@@ -26,12 +37,12 @@ const AuthenticationStore = {
 			state.isLoggedIn = isLoggedIn;
 		},
 		setTokenData(state, tokenData) {
-			if(tokenData.token){
-				state.tokenData.token = tokenData.token;
+			if(tokenData.access_token){
+				state.tokenData.token = tokenData.access_token;
 			}
 
-			if(tokenData.refreshToken){
-				state.tokenData.refreshToken = tokenData.refreshToken;
+			if(tokenData.refresh_token){
+				state.tokenData.refreshToken = tokenData.refresh_token;
 			}
 
 			if(tokenData.expires){

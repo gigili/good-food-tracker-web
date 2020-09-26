@@ -22,6 +22,7 @@
   "register": "register",
   "settings": "settings",
   "save_information" : "save information",
-  "profile_information_updated_success": "profile information updated successfully"
+  "profile_information_updated_success": "profile information updated successfully",
+  "select_profile_image": "select new profile image to upload"
 }
 

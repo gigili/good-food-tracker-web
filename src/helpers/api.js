@@ -13,16 +13,16 @@ export default (requiresAuth = false) => {
 	}
 
 	const instance = axios.create(options);
-	const now = Date.now();
+	const now = Math.floor(Date.now() / 1000);
 
 	if (tokenData !== null) {
 		const tokenExpiresAt = tokenData.expires;
 		if ((tokenExpiresAt === null || now > tokenExpiresAt) && tokenData.refreshToken !== null) {
-			instance.post(`/refresh`, {
+			instance.post(`/token`, {
 				refresh_token: tokenData.refreshToken
 			}).then(response => {
 				if (response.data.success) {
-					store.commit("setTokenData", {
+					store.commit("AuthenticationStore/setTokenData", {
 						token: response.data.access_token,
 						expires: response.data.expires
 					});
