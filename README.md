@@ -23,6 +23,10 @@ $ npm run serve
 $ vue ui
 ```
  
+#### Note
+
+You will need an instance of the [API](https://github.com/gigili/good-food-tracker-api) running as well. 
+ 
 ### Contribution guidelines ###
 
 * Keep code clean and simple;
@@ -39,8 +43,8 @@ List of currently completed or still being developed feature:
 * [x] Login 
 * [x] Register
 * [ ] User profile
-    * [ ] Get user profile information
-    * [ ] Update user profile information
+    * [x] Get user profile information
+    * [x] Update user profile information
     * [ ] Delete user profile
 * [ ] Restaurants
     * [ ] List of all the restaurants
