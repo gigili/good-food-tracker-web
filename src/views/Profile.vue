@@ -39,19 +39,19 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp"
                         v-model="newProfileImage"
-                        :label="profileImageLabel"/>
+                        :label="labels.profileImage"/>
                   </v-col>
 
                   <v-col cols="6" sm="12" class="px-15 ma-0">
                     <v-text-field
-                        :label="nameLabel"
+                        :label="labels.name"
                         type="text"
                         v-model="userData.name"/>
                   </v-col>
 
                   <v-col cols="6" sm="12" class="px-15 ma-0">
                     <v-text-field
-                        :label="emailLabel"
+                        :label="labels.email"
                         type="email"
                         v-model="userData.email"/>
                   </v-col>
@@ -74,6 +74,7 @@
 import {mapGetters, mapMutations} from "vuex";
 import api from "@/helpers/api";
 import AlertMessages from "@/components/AlertMessages";
+import utilities from "@/helpers/utilities";
 
 export default {
   name: "Profile",
@@ -97,16 +98,18 @@ export default {
   },
   data() {
     return {
-      isEditing: false,
-      userData: {},
-      nameLabel: this.translate("full_name"),
-      emailLabel: this.translate("email"),
-      profileImageLabel: this.translate("select_profile_image"),
       error: "",
       message: "",
+      isEditing: false,
+      userData: {},
+      labels: {
+        name: this.translate("full_name"),
+        email: this.translate("email"),
+        profileImage: this.translate("select_profile_image"),
+      },
       newProfileImage: null,
       imageUploadRules: [
-        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+        value => !value || value.size < 2000000 ||  utilities.format(this.translate("max_avatar_size"), 2),
       ],
     }
   },
@@ -149,6 +152,7 @@ export default {
         this.error = error.response.data.message;
       });
     },
+
     loadUserData(isDataUpdated = false){
       const profileURL = `/profile/${this.user.guid}`;
       api(true).get(profileURL).then(response => {
