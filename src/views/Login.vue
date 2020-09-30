@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col cols="12" sm="6" class="pa-5">
           <v-card class="pa-5" outlined tile>
-            <h1>Login</h1>
+            <h1 v-once>{{ translate("login") }}</h1>
             <hr/>
             <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
               reprehenderit?
@@ -38,9 +38,18 @@
           <v-card class="pa-5" outlined tile>
             <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
             <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-            <v-text-field label="Username" placeholder="Enter username..." type="text" v-model="username"/>
-            <v-text-field label="Password" type="password" v-model="password"/>
-            <v-btn color="primary" @click.prevent="login">Login</v-btn>
+            <v-text-field
+                v-once
+                :label="translate('username')"
+                :placeholder="translate('enter_username')"
+                type="text"
+                v-model="username"/>
+            <v-text-field
+                v-once
+                :label="translate('password')"
+                type="password"
+                v-model="password"/>
+            <v-btn color="primary" v-once @click.prevent="login">{{ translate("login") }}</v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -50,13 +59,13 @@
 
 <script>
 import {mapGetters, mapMutations} from "vuex";
-import axios from "axios";
+import api from "@/helpers/api";
 import utilities from "@/helpers/utilities";
 
 export default {
   name: "Login",
   computed: {
-    ...mapGetters(["isLoggedIn", "token"])
+    ...mapGetters("AuthenticationStore", ["isLoggedIn"])
   },
   data() {
     return {
@@ -67,17 +76,18 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["setToken", "setIsLoggedIn"]),
+    ...mapMutations("AuthenticationStore", ["setTokenData", "setIsLoggedIn", "setUser"]),
     login() {
       const hashedPassword = utilities.hash(this.password);
 
-      axios.post(`${process.env.VUE_APP_API_URL}/login`, {
+      api().post('/login', {
         username: this.username,
         password: hashedPassword
       }).then((response) => {
         const result = response.data;
-        this.setToken(result.data.token || null);
-        this.setIsLoggedIn((result.data.token.length > 0));
+        this.setTokenData(result.data.tokenData);
+        this.setIsLoggedIn((result.data.tokenData.access_token.length > 0));
+        this.setUser(result.data.user);
         this.$router.push("/");
       }).catch((err) => {
         this.error = err.response.data.message;

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist';
 
-import AuthenticationStore from "@/store/modules/AuthenticationStore";
+import AuthenticationStore from "./modules/AuthenticationStore";
 
 Vue.use(Vuex)
 

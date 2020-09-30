@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col cols="12" sm="6" class="pa-5">
         <v-card class="pa-5" outlined tile>
-          <h1>Register</h1>
+          <h1 v-once>{{ translate("register") }}</h1>
           <hr/>
           <div class="lipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut doloremque maxime nemo
             reprehenderit?
@@ -37,14 +37,15 @@
         <v-card class="pa-5" outlined tile>
           <v-alert type="error" border="left" v-if="error.length > 0">{{ error }}</v-alert>
           <v-alert type="info" border="left" v-if="message.length > 0">{{ message }}</v-alert>
-          <v-text-field :label="trn('full_name')" :placeholder="trn('enter_full_name')" type="text" v-model="name"/>
-          <v-text-field :label="trn('email')" :placeholder="trn('enter_email')" type="email" v-model="email"/>
-          <v-text-field :label="trn('username')" autocomplete="off" :placeholder="trn('enter_username')" type="text"
+          <v-text-field :label="labels.fullName" :placeholder="labels.enterFullName" type="text" v-model="name"/>
+          <v-text-field :label="labels.email" :placeholder="labels.enterEmail" type="email" v-model="email"/>
+          <v-text-field :label="labels.username" autocomplete="off" :placeholder="labels.enterUsername" type="text"
                         v-model="username"/>
-          <v-text-field :label="trn('password')" autocomplete="off" :placeholder="trn('enter_password')"
+          <v-text-field :label="labels.password" autocomplete="off"
+                        :placeholder="labels.enterPassword"
                         type="password"
                         v-model="password"/>
-          <v-btn color="primary" @click.prevent="register">Register</v-btn>
+          <v-btn color="primary" @click.prevent="register" v-once>{{ translate("register") }}</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -55,16 +56,16 @@
 import {mapGetters} from "vuex";
 import utilities from "@/helpers/utilities";
 import validation from "@/helpers/validation";
+import api from "@/helpers/api";
 import translate from "@/helpers/translation";
-import axios from 'axios';
 
 export default {
   name: "Register",
-  computed:{
-    ...mapGetters(["isLoggedIn", "token"])
+  computed: {
+    ...mapGetters("AuthenticationStore", ["isLoggedIn"])
   },
   mounted() {
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.$router.push("/");
     }
   },
@@ -75,7 +76,17 @@ export default {
       username: "",
       password: "",
       message: "",
-      error: ""
+      error: "",
+      labels: {
+        fullName: this.translate("full_name"),
+        email: this.translate("email"),
+        username: this.translate("username"),
+        password: this.translate("password"),
+        enterFullName: this.translate("enter_full_name"),
+        enterEmail: this.translate("enter_email"),
+        enterUsername: this.translate("enter_username"),
+        enterPassword: this.translate("enter_password")
+      }
     }
   },
   methods: {
@@ -96,7 +107,7 @@ export default {
 
       const hashedPassword = utilities.hash(this.password);
 
-      axios.post(`${process.env.VUE_APP_API_URL}/register`, {
+      api().post("/register", {
         name: this.name,
         email: this.email,
         username: this.username,
@@ -106,18 +117,14 @@ export default {
           this.error = response.data.message;
         } else {
           this.message = response.data.message;
-
           this.clearInputs();
         }
       }).catch((err) => {
         this.error = err.response.data.message;
       });
     },
-    trn(key) {
-      return translate(key);
-    },
-    clearInputs(){
-      this.name ="";
+    clearInputs() {
+      this.name = "";
       this.email = "";
       this.username = "";
       this.password = "";
@@ -127,7 +134,7 @@ export default {
 </script>
 
 <style scoped>
-  .lipsum {
-    margin-top: 15px;
-  }
+.lipsum {
+  margin-top: 15px;
+}
 </style>
