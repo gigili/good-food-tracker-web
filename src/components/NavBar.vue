@@ -43,16 +43,16 @@
         <v-list>
           <v-list-item @click="() => {}">
             <v-list-item-title>
-              <router-link to="/profile" class="profileLinks" v-once>{{ translate("profile") }}</router-link>
+              <router-link :to="{name: 'Profile'}" class="profileLinks" v-once>{{ translate("profile") }}</router-link>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item @click="() => {}">
+          <!--<v-list-item @click="() => {}">
             <v-list-item-title>
               <router-link to="/settings" class="profileLinks" v-once>
                 {{ translate("settings") }}
               </router-link>
             </v-list-item-title>
-          </v-list-item>
+          </v-list-item>-->
         </v-list>
       </v-menu>
 

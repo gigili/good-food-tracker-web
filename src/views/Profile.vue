@@ -10,14 +10,14 @@
               </v-avatar>
               <v-card-subtitle>{{ userData.username }}</v-card-subtitle>
 
-              <v-btn v-if="!isEditing" small outlined color="primary" dark @click="enableEditing">
+              <v-btn v-if="!isEditing && canEditProfile" small outlined color="primary" dark @click="enableEditing">
                 <span v-once>
                   {{ translate("edit_information") }}
                 </span>
                 <v-icon class="ml-2">mdi-pencil</v-icon>
               </v-btn>
 
-              <v-btn v-else small outlined color="primary" dark @click="saveInformation">
+              <v-btn v-if="isEditing && canEditProfile" small outlined color="primary" dark @click="saveInformation">
                 <span v-once>
                   {{ translate("save_information") }}
                 </span>
@@ -94,6 +94,9 @@ export default {
       }
 
       return value;
+    },
+    canEditProfile(){
+      return (!this.isEditing && this.user.guid === (this.$route.params.userID || this.user.guid))
     }
   },
   data() {
@@ -122,9 +125,6 @@ export default {
     },
 
     saveInformation() {
-      this.user.name = this.userData.name;
-      this.user.email = this.userData.email;
-
       const updateData = new FormData();
       updateData.append("name", this.userData.name);
       updateData.append("email", this.userData.email);
@@ -142,6 +142,8 @@ export default {
 
       api(true).patch(`/profile/${this.user.guid}`, updateData, headers).then(response => {
         if (response.data.success) {
+          this.user.name = this.userData.name;
+          this.user.email = this.userData.email;
           this.message = this.translate("profile_information_updated_success")
           this.isEditing = false;
           this.loadUserData(true);
@@ -154,7 +156,9 @@ export default {
     },
 
     loadUserData(isDataUpdated = false){
-      const profileURL = `/profile/${this.user.guid}`;
+      const userID = this.$route.params.userID || this.user.guid;
+      console.log(`UserID: ${userID}`);
+      const profileURL = `/profile/${userID}`;
       api(true).get(profileURL).then(response => {
         if(response.data.success){
           this.userData = response.data.data;
@@ -167,6 +171,11 @@ export default {
       });
     }
   },
+  watch:{
+    $route (){
+      this.loadUserData();
+    }
+  }
 }
 
 </script>
