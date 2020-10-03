@@ -14,6 +14,17 @@ export default {
   name: 'App',
   components:{
     NavBar
+  },
+  mounted(){
+    /*navigator.geolocation.getCurrentPosition(
+        position => {
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+        },
+        error => {
+          console.log(error.message);
+        },
+    );*/
   }
 };
 </script>

@@ -14,7 +14,7 @@
                 <span v-once>
                   {{ translate("edit_information") }}
                 </span>
-                <v-icon class="ml-2">mdi-pencil</v-icon>
+                <v-icon class="ml-2" color="primary">mdi-pencil</v-icon>
               </v-btn>
 
               <v-btn v-if="isEditing && canEditProfile" small outlined color="primary" dark @click="saveInformation">

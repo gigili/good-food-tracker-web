@@ -24,6 +24,12 @@
   "save_information" : "save information",
   "profile_information_updated_success": "profile information updated successfully",
   "select_profile_image": "select new profile image to upload",
-  "max_avatar_size": "Avatar size should be less than {0} MB!"
+  "max_avatar_size": "Avatar size should be less than {0} MB!",
+  "review_form": "review form",
+  "submit": "submit",
+  "leave_a_review": "leave a review",
+  "lbl_offers_delivery": "offers delivery:",
+  "yes": "yes",
+  "no": "no"
 }
 
