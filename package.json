@@ -16,7 +16,7 @@
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0",
     "vuex-persist": "^2.2.0",
-    "webpack-merge": "^5.1.4"
+    "webpack-merge": "^5.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
