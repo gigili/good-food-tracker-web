@@ -1,6 +1,15 @@
-# Good Food Tracker #
+<div align="center"> 
+ 
+# Good Food Tracker
 
+
+![Good Food Tracker Banner](https://github.com/cesaralvrz/good-food-tracker-web/blob/master/src/assets/GFT.png) 
+ 
 Good food tracker project is a collection of a back end web API (Nodejs & Express), front end web app (Vuejs) and a mobile application (Kotlin). 
+
+</div>
+
+## Description
 
 The project aims to allow the users to take pictures and/or leave notes, ratings, comments about restaurants they visit in order to be able to reference it later when they try to pick were they wanna go eat out or order from. 
 
