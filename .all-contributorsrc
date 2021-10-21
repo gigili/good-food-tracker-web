@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "cesaralvrz",
+      "name": "César Álvarez Llaneza",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57325703?v=4",
+      "profile": "https://cesaralvarez.js.org/",
+      "contributions": [
+        "doc",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "good-food-tracker-web",
+  "projectOwner": "gigili",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
