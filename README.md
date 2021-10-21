@@ -3,7 +3,7 @@
 # Good Food Tracker
 
 
-![Good Food Tracker Banner](https://github.com/cesaralvrz/good-food-tracker-web/blob/master/src/assets/GFT.png) 
+![Good Food Tracker Banner](https://github.com/cesaralvrz/good-food-tracker-web/blob/master/src/assets/GoodFoodTrackerBanner.svg) 
  
 Good food tracker project is a collection of a back end web API (Nodejs & Express), front end web app (Vuejs) and a mobile application (Kotlin). 
 
