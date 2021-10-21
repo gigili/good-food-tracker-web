@@ -1,9 +1,19 @@
-# Good Food Tracker #
+
+q# Good Food Tracker #
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+<div align="center"> 
+ 
+
+![Good Food Tracker Banner](https://github.com/cesaralvrz/good-food-tracker-web/blob/master/src/assets/GoodFoodTrackerBanner.svg) 
+ 
 Good food tracker project is a collection of a back end web API (Nodejs & Express), front end web app (Vuejs) and a mobile application (Kotlin). 
+
+</div>
+
+## Description
 
 The project aims to allow the users to take pictures and/or leave notes, ratings, comments about restaurants they visit in order to be able to reference it later when they try to pick were they wanna go eat out or order from. 
 
